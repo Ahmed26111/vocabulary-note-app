@@ -17,9 +17,23 @@ sealed class ReadState {
 
 }
 
-final class ReadInitialState extends ReadState {}
+final class ReadInitialState extends ReadState {
+  const ReadInitialState({
+    super.words,
+    super.languageFilter,
+    super.sortedFilter,
+    super.sortingType
+  });
+}
 
-final class ReadLoadingState extends ReadState {}
+final class ReadLoadingState extends ReadState {
+  const ReadLoadingState({
+    super.words,
+    super.languageFilter,
+    super.sortedFilter,
+    super.sortingType
+  });
+}
 
 final class ReadLoadedState extends ReadState {
   const ReadLoadedState({
@@ -44,5 +58,11 @@ final class ReadLoadedState extends ReadState {
 final class ReadErrorState extends ReadState {
   final String message;
 
-  const ReadErrorState({required this.message});
+  const ReadErrorState({
+    required this.message,
+    super.words,
+    super.languageFilter,
+    super.sortedFilter,
+    super.sortingType
+  });
 }

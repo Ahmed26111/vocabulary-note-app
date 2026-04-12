@@ -24,14 +24,14 @@ class ReadCubit extends Cubit<ReadState> {
   }
 
   void getWords(){
-    emit(ReadLoadingState());
+    emit(ReadLoadingState(words: state.words,languageFilter: state.languageFilter,sortedFilter: state.sortedFilter,sortingType: state.sortingType));
     try{
       List<WordModel> wordsFromDataBase = HiveHandler.getWords();
       _removeTheUnwantedWordsFromTheList(wordsFromDataBase);
       _applySortingForTheList(wordsFromDataBase);
-      emit(ReadLoadedState(words: wordsFromDataBase));
+      emit(ReadLoadedState(words: wordsFromDataBase,languageFilter: state.languageFilter,sortedFilter: state.sortedFilter,sortingType: state.sortingType));
     }catch(error){
-      emit(ReadErrorState(message: error.toString()));
+      emit(ReadErrorState(message: error.toString(),words: state.words,languageFilter: state.languageFilter,sortedFilter: state.sortedFilter,sortingType: state.sortingType));
     }
   }
 

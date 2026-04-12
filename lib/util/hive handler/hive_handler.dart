@@ -17,4 +17,8 @@ class HiveHandler{
     return List<WordModel>.from(box.get(HiveConstants.wordsList, defaultValue: []));
   }
 
+  static void addAndUpdateWords(List<WordModel> newWords) async{
+    await box.put(HiveConstants.wordsList, newWords);
+  }
+
 }
