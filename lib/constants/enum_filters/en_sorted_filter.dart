@@ -1,0 +1,4 @@
+enum EnSortedFilter{
+  eByTime,
+  eByWordLenght,
+}

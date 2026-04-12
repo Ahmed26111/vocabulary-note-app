@@ -1,0 +1,4 @@
+enum EnSortingType{
+  eAscending,
+  eDescending
+}
