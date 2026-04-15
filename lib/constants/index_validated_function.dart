@@ -1,0 +1,1 @@
+bool isIndexValidated (int index , List<dynamic> list) => (index >= 0 && index < list.length);

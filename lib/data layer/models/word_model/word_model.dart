@@ -1,3 +1,5 @@
+import 'package:vocabulary_note_app/constants/index_validated_function.dart';
+
 class WordModel {
   final int indexAtDatabase;
   final int colorCode;
@@ -31,7 +33,9 @@ class WordModel {
     List<String> newSimilarWords = _initializeNewSimilarWords(
       isArabicSimilarWord,
     );
-    newSimilarWords.removeAt(indexAtSimilarWord);
+    if(isIndexValidated(indexAtSimilarWord, newSimilarWords)){
+       newSimilarWords.removeAt(indexAtSimilarWord);
+    }
     return _getWordAfterCheckSimilarWords(newSimilarWords, isArabicSimilarWord);
   }
 
@@ -43,7 +47,9 @@ class WordModel {
 
   WordModel deleteExample(int indexAtExample, bool isArabicExample) {
     List<String> newExample = _initializeNewExample(isArabicExample);
-    newExample.removeAt(indexAtExample);
+    if(isIndexValidated(indexAtExample, newExample)){
+      newExample.removeAt(indexAtExample);
+    }
     return _getWordAfterCheckExamples(newExample, isArabicExample);
   }
 
