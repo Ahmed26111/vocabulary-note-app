@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vocabulary_note_app/ui%20layer/core/layout/home_screen.dart';
+import 'package:vocabulary_note_app/ui%20layer/core/theme/theme_manager.dart';
 import 'package:vocabulary_note_app/util/hive%20handler/hive_handler.dart';
 
 void main() async{
@@ -14,7 +16,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const Placeholder(),
+      home: const HomeScreen(),
+      theme: ThemeManager.getLightAppTheme(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
