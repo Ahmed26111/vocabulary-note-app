@@ -10,11 +10,11 @@ class HiveHandler{
   static Future<void> init() async{
     await Hive.initFlutter();
     Hive.registerAdapter(WordTypeAdapter());
-    box = await Hive.openBox<List<WordModel>>(HiveConstants.wordsBox);
+    box = await Hive.openBox(HiveConstants.wordsBox);
   }
 
   static List<WordModel> getWords(){
-    return List<WordModel>.from(box.get(HiveConstants.wordsList, defaultValue: []));
+    return List.from(box.get(HiveConstants.wordsList, defaultValue: <WordModel>[])).cast<WordModel>();
   }
 
   static void addAndUpdateWords(List<WordModel> newWords) async{

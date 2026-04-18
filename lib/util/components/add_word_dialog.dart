@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vocabulary_note_app/constants/colors_manager.dart';
 import 'package:vocabulary_note_app/controller%20layer/write_bloc/write_cubit.dart';
 import 'package:vocabulary_note_app/util/components/arabic_or_english_widget.dart';
 import 'package:vocabulary_note_app/util/components/colors_widget.dart';
@@ -19,7 +20,19 @@ class _AddWordDialogState extends State<AddWordDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      child: BlocBuilder<WriteCubit, WriteState>(
+      child: BlocConsumer<WriteCubit, WriteState>(
+        listener: (context,state){
+          switch(state){
+            case WriteInitialState():break;
+
+            case WriteLoadingState():CircularProgressIndicator();break;
+
+            case WriteLoadedState():Navigator.pop(context);
+
+            case WriteErrorState():ScaffoldMessenger.of(context).showSnackBar(_getSnackBar(state.message));break;
+
+          }
+        },
         builder: (context, state) =>
             AnimatedContainer(
               duration: Duration(milliseconds: 750),
@@ -51,7 +64,7 @@ class _AddWordDialogState extends State<AddWordDialog> {
                           colorCodes: state.colorCodes,
                           onTap: (){
                              if(_globalKey.currentState!.validate()){
-                               //Todo add word model in data base
+                               context.read<WriteCubit>().addWord();
                              }
                           }
                       ),
@@ -62,6 +75,13 @@ class _AddWordDialogState extends State<AddWordDialog> {
               ),
             ),
       ),
+    );
+  }
+
+  SnackBar _getSnackBar(String message){
+    return SnackBar(
+        content: Text(message,  maxLines: 2, style: TextStyle(color: ColorsManager.white),),
+        backgroundColor: ColorsManager.red,
     );
   }
 }

@@ -1,7 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vocabulary_note_app/constants/colors_manager.dart';
+import 'package:vocabulary_note_app/controller%20layer/read_bloc/read_cubit.dart';
+import 'package:vocabulary_note_app/controller%20layer/write_bloc/write_cubit.dart';
 import 'package:vocabulary_note_app/util/components/add_word_dialog.dart';
 import 'package:vocabulary_note_app/util/components/colors_widget.dart';
+import 'package:vocabulary_note_app/util/components/filter_dialog_button.dart';
+import 'package:vocabulary_note_app/util/components/language_filter_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,7 +19,20 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Home"),
       ),
-      body: null,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 8),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                LanguageFilterWidget(),
+                Spacer(),
+                FilterDialogButton(),
+              ],
+            )
+          ],
+        ),
+      ),
       floatingActionButton: _getFloatingActionButton(context),
     );
   }

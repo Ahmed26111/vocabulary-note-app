@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vocabulary_note_app/constants/enum_filters/en_language_filter.dart';
@@ -12,15 +14,15 @@ class ReadCubit extends Cubit<ReadState> {
   ReadCubit() : super(ReadInitialState());
 
   void updateLanguageFilter(EnLanguageFilter languageFilter){
-    emit(ReadLoadedState(words: state.words , languageFilter: languageFilter , sortingType: state.sortingType , sortedFilter: state.sortedFilter));
+    emit(ReadInitialState(words: state.words , languageFilter: languageFilter , sortingType: state.sortingType , sortedFilter: state.sortedFilter));
   }
 
   void updateSortedBy(EnSortedFilter sortedFilter){
-    emit(ReadLoadedState(words: state.words , sortedFilter: sortedFilter , languageFilter: state.languageFilter , sortingType: state.sortingType ));
+    emit(ReadInitialState(words: state.words , sortedFilter: sortedFilter , languageFilter: state.languageFilter , sortingType: state.sortingType ));
   }
 
   void updateSortingType(EnSortingType sortingType){
-    emit(ReadLoadedState(words: state.words , sortingType: sortingType , languageFilter: state.languageFilter , sortedFilter: state.sortedFilter));
+    emit(ReadInitialState(words: state.words , sortingType: sortingType , languageFilter: state.languageFilter , sortedFilter: state.sortedFilter));
   }
 
   void getWords(){
@@ -50,7 +52,10 @@ class ReadCubit extends Cubit<ReadState> {
         return;
       }
       else{
-        words= words.reversed.toList();
+        // We must reverse the list in place or replace content
+        List<WordModel> reversed = words.reversed.toList();
+        words.clear();
+        words.addAll(reversed);
       }
     }
     else{
@@ -59,7 +64,10 @@ class ReadCubit extends Cubit<ReadState> {
         return;
       }
       else{
-        words= words.reversed.toList();
+        // We must reverse the list in place or replace content
+        List<WordModel> reversed = words.reversed.toList();
+        words.clear();
+        words.addAll(reversed);
       }
     }
 

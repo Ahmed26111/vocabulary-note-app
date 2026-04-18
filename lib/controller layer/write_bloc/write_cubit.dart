@@ -10,15 +10,15 @@ class WriteCubit extends Cubit<WriteState> {
   WriteCubit() : super(WriteInitialState());
 
   void updateText(String text){
-    emit(WriteLoadedState(text: text,isArabic: state.isArabic,colorCodes: state.colorCodes));
+    emit(WriteInitialState(text: text,isArabic: state.isArabic,colorCodes: state.colorCodes));
   }
 
   void updateIsArabic(bool isArabic){
-    emit(WriteLoadedState(text: state.text,isArabic: isArabic,colorCodes: state.colorCodes));
+    emit(WriteInitialState(text: state.text,isArabic: isArabic,colorCodes: state.colorCodes));
   }
 
   void updateColorCode(List<int> colorsCode){
-    emit(WriteLoadedState(text: state.text,isArabic: state.isArabic,colorCodes: colorsCode));
+    emit(WriteInitialState(text: state.text,isArabic: state.isArabic,colorCodes: colorsCode));
   }
 
   void addWord(){
