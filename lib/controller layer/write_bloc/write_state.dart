@@ -4,29 +4,29 @@ part of 'write_cubit.dart';
 sealed class WriteState {
   final String text;
   final bool isArabic;
-  final int colorCode;
+  final List<int> colorCodes;
 
   const WriteState({
     this.text = "",
     this.isArabic = true,
-    this.colorCode = 0XFF4A47A3,
+    this.colorCodes = const [0xFFFF9A86 , 0xFFFFD6A6],
   });
 }
 
 final class WriteInitialState extends WriteState {
-  const WriteInitialState({super.text, super.isArabic, super.colorCode});
+  const WriteInitialState({super.text, super.isArabic, super.colorCodes});
 }
 
 final class WriteLoadingState extends WriteState {
-  const WriteLoadingState({super.text, super.isArabic, super.colorCode});
+  const WriteLoadingState({super.text, super.isArabic, super.colorCodes});
 }
 
 final class WriteLoadedState extends WriteState {
-  const WriteLoadedState({super.text, super.isArabic, super.colorCode});
+  const WriteLoadedState({super.text, super.isArabic, super.colorCodes});
 }
 
 final class WriteErrorState extends WriteState {
   final String message;
 
-  const WriteErrorState({required this.message,super.text, super.isArabic, super.colorCode});
+  const WriteErrorState({required this.message,super.text, super.isArabic, super.colorCodes});
 }

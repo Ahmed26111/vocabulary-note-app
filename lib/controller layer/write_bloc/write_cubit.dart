@@ -1,6 +1,3 @@
-import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
-import 'dart:ui';
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:vocabulary_note_app/constants/index_validated_function.dart';
@@ -13,22 +10,22 @@ class WriteCubit extends Cubit<WriteState> {
   WriteCubit() : super(WriteInitialState());
 
   void updateText(String text){
-    emit(WriteLoadedState(text: text,isArabic: state.isArabic,colorCode: state.colorCode));
+    emit(WriteLoadedState(text: text,isArabic: state.isArabic,colorCodes: state.colorCodes));
   }
 
   void updateIsArabic(bool isArabic){
-    emit(WriteLoadedState(text: state.text,isArabic: isArabic,colorCode: state.colorCode));
+    emit(WriteLoadedState(text: state.text,isArabic: isArabic,colorCodes: state.colorCodes));
   }
 
-  void updateColorCode(int colorCode){
-    emit(WriteLoadedState(text: state.text,isArabic: state.isArabic,colorCode: colorCode));
+  void updateColorCode(List<int> colorsCode){
+    emit(WriteLoadedState(text: state.text,isArabic: state.isArabic,colorCodes: colorsCode));
   }
 
   void addWord(){
     _tryAndCatchBlock(()
     {
       List<WordModel>wordsFromDatabase = HiveHandler.getWords();
-      wordsFromDatabase.add(WordModel(indexAtDatabase: wordsFromDatabase.length, colorCode: state.colorCode, text: state.text, isArabic: state.isArabic));
+      wordsFromDatabase.add(WordModel(indexAtDatabase: wordsFromDatabase.length, colorCode: state.colorCodes, text: state.text, isArabic: state.isArabic));
       HiveHandler.addAndUpdateWords(wordsFromDatabase);
     },
     );
@@ -137,12 +134,12 @@ class WriteCubit extends Cubit<WriteState> {
   }
 
   void _tryAndCatchBlock(void Function () methodToExecute  ){
-    emit(WriteLoadingState(text: state.text,isArabic: state.isArabic,colorCode: state.colorCode));
+    emit(WriteLoadingState(text: state.text,isArabic: state.isArabic,colorCodes: state.colorCodes));
     try{
       methodToExecute.call();
-      emit(WriteLoadedState(text: state.text,isArabic: state.isArabic,colorCode: state.colorCode));
+      emit(WriteLoadedState(text: state.text,isArabic: state.isArabic,colorCodes: state.colorCodes));
     } catch(error){
-      emit(WriteErrorState(message: error.toString(),text: state.text,isArabic: state.isArabic,colorCode: state.colorCode));
+      emit(WriteErrorState(message: error.toString(),text: state.text,isArabic: state.isArabic,colorCodes: state.colorCodes));
     }
   }
 

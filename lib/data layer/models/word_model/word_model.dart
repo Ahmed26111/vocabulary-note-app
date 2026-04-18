@@ -2,7 +2,7 @@ import 'package:vocabulary_note_app/constants/index_validated_function.dart';
 
 class WordModel {
   final int indexAtDatabase;
-  final int colorCode;
+  final List<int> colorCode;
   final String text;
   final bool isArabic;
   final List<String> arabicSimilarites;
@@ -54,20 +54,13 @@ class WordModel {
   }
 
   WordModel decrementIndexAtDataBase() {
-    return WordModel(
-      indexAtDatabase: indexAtDatabase-1,
-      colorCode: colorCode,
-      text: text,
-      isArabic: isArabic,
-      arabicExamples: arabicExamples,
-      englishExamples: englishExamples,
-      arabicSimilarites: arabicSimilarites,
-      englishSimilarites: englishSimilarites,
+    return copyWith(
+      newIndexAtDataBase: indexAtDatabase - 1 ,
     );
   }
 
   WordModel copyWith(
-      {int ? newIndexAtDataBase, int ? newColorCode, String ? newText, bool ? newIsArabic, List<
+      {int ? newIndexAtDataBase, List<int> ? newColorCode, String ? newText, bool ? newIsArabic, List<
           String> ? newArabicSimilarites, List<String> ? newEnglishSimilarites, List<
           String> ? newArabicExamples, List<String> ? newEnglishExamples})
   {
