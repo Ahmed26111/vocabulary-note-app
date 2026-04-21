@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context)=> WriteCubit()) ,
-        BlocProvider(create: (context)=> ReadCubit()) ,
+        BlocProvider(create: (context)=> ReadCubit()..getWords()) ,
       ],
       child: MaterialApp(
         home: const HomeScreen(),

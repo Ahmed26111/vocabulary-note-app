@@ -111,6 +111,7 @@ class FilterDialog extends StatelessWidget {
             return Wrap(
               spacing: spacing,
               runSpacing: 4,
+              direction: Axis.horizontal,
               children: [
                 for(int i = 0; i < labels.length; i++)
                   SizedBox(

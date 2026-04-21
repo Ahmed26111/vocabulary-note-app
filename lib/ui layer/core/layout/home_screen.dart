@@ -9,6 +9,7 @@ import 'package:vocabulary_note_app/util/components/add_word_dialog.dart';
 import 'package:vocabulary_note_app/util/components/colors_widget.dart';
 import 'package:vocabulary_note_app/util/components/filter_dialog_button.dart';
 import 'package:vocabulary_note_app/util/components/language_filter_widget.dart';
+import 'package:vocabulary_note_app/util/components/words_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -20,8 +21,9 @@ class HomeScreen extends StatelessWidget {
         title: Text("Home"),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         child: Column(
+          spacing: 5,
           children: [
             Row(
               children: [
@@ -29,7 +31,15 @@ class HomeScreen extends StatelessWidget {
                 Spacer(),
                 FilterDialogButton(),
               ],
-            )
+            ),
+            BlocListener<WriteCubit, WriteState>(
+              listener: (context, state) {
+                if(state is WriteLoadedState){
+                  context.read<ReadCubit>().getWords();
+                }
+              },
+              child: WordsWidget(),
+            ),
           ],
         ),
       ),
@@ -37,17 +47,16 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  FloatingActionButton _getFloatingActionButton(BuildContext context){
+  FloatingActionButton _getFloatingActionButton(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () => showDialog(context: context, builder: (context) => AddWordDialog()),
+      onPressed: () =>
+          showDialog(context: context, builder: (context) => AddWordDialog()),
       backgroundColor: ColorsManager.white,
       foregroundColor: ColorsManager.black,
       shape: CircleBorder(),
       child: const Icon(Icons.add),
     );
   }
-
-
 
 
 }

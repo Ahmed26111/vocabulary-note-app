@@ -15,14 +15,17 @@ class ReadCubit extends Cubit<ReadState> {
 
   void updateLanguageFilter(EnLanguageFilter languageFilter){
     emit(ReadInitialState(words: state.words , languageFilter: languageFilter , sortingType: state.sortingType , sortedFilter: state.sortedFilter));
+    getWords();
   }
 
   void updateSortedBy(EnSortedFilter sortedFilter){
     emit(ReadInitialState(words: state.words , sortedFilter: sortedFilter , languageFilter: state.languageFilter , sortingType: state.sortingType ));
+    getWords();
   }
 
   void updateSortingType(EnSortingType sortingType){
     emit(ReadInitialState(words: state.words , sortingType: sortingType , languageFilter: state.languageFilter , sortedFilter: state.sortedFilter));
+    getWords();
   }
 
   void getWords(){
@@ -39,9 +42,10 @@ class ReadCubit extends Cubit<ReadState> {
 
   void _removeTheUnwantedWordsFromTheList(List<WordModel> words){
       if(state.languageFilter == EnLanguageFilter.eAll){return;}
-      for(int i=0 ; i<state.words.length ; i++){
-        if((state.languageFilter == EnLanguageFilter.eArabic && !state.words[i].isArabic) || (state.languageFilter == EnLanguageFilter.eEnglish && state.words[i].isArabic)){
-          state.words.removeAt(i--);
+      for(int i=0 ; i<words.length ; i++){
+        if((state.languageFilter == EnLanguageFilter.eArabic && !words[i].isArabic) || (state.languageFilter == EnLanguageFilter.eEnglish && words[i].isArabic)){
+          words.removeAt(i);
+          i--;
         }
       }
   }
