@@ -38,7 +38,7 @@ class WriteCubit extends Cubit<WriteState> {
         if(isIndexValidated(wordIndex, wordsFromDatabase)){
             wordsFromDatabase.removeAt(wordIndex);
             for(int i=wordIndex;i<wordsFromDatabase.length;i++){
-              wordsFromDatabase[i].decrementIndexAtDataBase();
+              wordsFromDatabase[i] = wordsFromDatabase[i].decrementIndexAtDataBase();
             }
         }
         else{
