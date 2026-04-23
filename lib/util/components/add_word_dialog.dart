@@ -21,8 +21,8 @@ class _AddWordDialogState extends State<AddWordDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       child: BlocConsumer<WriteCubit, WriteState>(
-        listener: (context,state){
-          switch(state){
+        listener: (context, state) {
+          switch (state) {
             case WriteInitialState():break;
 
             case WriteLoadingState():CircularProgressIndicator();break;
@@ -37,35 +37,35 @@ class _AddWordDialogState extends State<AddWordDialog> {
             AnimatedContainer(
               duration: Duration(milliseconds: 750),
               decoration: BoxDecoration(
-                gradient: LinearGradient(colors: state.colorCodes.map((colorCode)=>Color(colorCode)).toList()),
-                borderRadius: BorderRadius.circular(15)
+                  gradient: LinearGradient(colors: state.colorCodes.map((colorCode) => Color(colorCode)).toList()),
+                  borderRadius: BorderRadius.circular(15)
               ),
-              child:  Column(
+              child: Column(
                 mainAxisSize: MainAxisSize.min,
                 spacing: 10,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal:  10 , vertical: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: ArabicOrEnglishWidget(colorCodes: state.colorCodes, isArabicSelected: state.isArabic),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal:  10 , vertical: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: ColorsWidget(activeColorCodes: state.colorCodes),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal:  10 , vertical: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: CustomFormWidget(label: "New Word", globalKey: _globalKey),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal:  10 , vertical: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: DoneButton(
                           colorCodes: state.colorCodes,
-                          onTap: (){
-                             if(_globalKey.currentState!.validate()){
-                               context.read<WriteCubit>().addWord();
-                             }
+                          onTap: () {
+                            if (_globalKey.currentState!.validate()) {
+                              context.read<WriteCubit>().addWord();
+                            }
                           }
                       ),
                     ),
@@ -78,10 +78,10 @@ class _AddWordDialogState extends State<AddWordDialog> {
     );
   }
 
-  SnackBar _getSnackBar(String message){
+  SnackBar _getSnackBar(String message) {
     return SnackBar(
-        content: Text(message,  maxLines: 2, style: TextStyle(color: ColorsManager.white),),
-        backgroundColor: ColorsManager.red,
+      content: Text(message, maxLines: 2, style: TextStyle(color: ColorsManager.white),),
+      backgroundColor: ColorsManager.red,
     );
   }
 }

@@ -106,20 +106,20 @@ class WriteCubit extends Cubit<WriteState> {
     );
   }
 
-  void deleteExample({required int wordIndex,required int similarWordIndex , required bool isArabicExample}){
+  void deleteExample({required int wordIndex,required int exampleIndex , required bool isArabicExample}){
     _tryAndCatchBlock(
           (){
         List<WordModel> wordsFromDatabase = HiveHandler.getWords();
         if(isIndexValidated(wordIndex, wordsFromDatabase)){
           if ((isArabicExample)
               ? isIndexValidated(
-              similarWordIndex, wordsFromDatabase[wordIndex].arabicExamples)
+              exampleIndex, wordsFromDatabase[wordIndex].arabicExamples)
               : isIndexValidated(
-              similarWordIndex, wordsFromDatabase[wordIndex].englishExamples)
+              exampleIndex, wordsFromDatabase[wordIndex].englishExamples)
           ) {
             wordsFromDatabase[wordIndex] =
                 wordsFromDatabase[wordIndex].deleteExample(
-                    similarWordIndex, isArabicExample);
+                    exampleIndex, isArabicExample);
           }
           else {
             throw Exception("this example index is not valid");
